@@ -18,7 +18,7 @@ char* str;
 %token <val> NUM
 %token <str> IDENTIFIER
 %token BYTE WORD DWORD
-%token SEMICOLON
+%token SEMICOLON COMMA
 %token ASSIGN
 %token NL
 %token BLOCKSTART BLOCKEND
@@ -47,20 +47,21 @@ declaration
 ;
 
 type_specifier
-    : BYTE  { curtype=TYPE_BYTE; }
-    | WORD  { curtype=TYPE_WORD; }
-    | DWORD { curtype=TYPE_DWORD; }
+    : BYTE              { curtype=TYPE_BYTE; }
+    | WORD              { curtype=TYPE_WORD; }
+    | DWORD             { curtype=TYPE_DWORD; }
 ;
 
 init_declarator_list
-    : declarator { addnewsym(curname,curtype) };
-    | init_declarator_list ',' declarator
+    : declarator            
+    | init_declarator_list COMMA declarator 
 ;
 
 declarator
-    : IDENTIFIER            { strcpy(curname,curident); }
-    | IDENTIFIER REFSTART REFEND       { strcpy(curname,curident); puts("array defined"); }
-    | IDENTIFIER REFSTART NUM REFEND   { strcpy(curname,curident); puts("sized array defined"); }
+    : IDENTIFIER                        { addnewsym(curident,curtype,0); }
+    | IDENTIFIER ASSIGN NUM             { addnewsym(curident,curtype,$3); }
+    | IDENTIFIER REFSTART REFEND        { addnewsym(curident,curtype,0); puts("array defined"); }
+    | IDENTIFIER REFSTART NUM REFEND    { addnewsym(curident,curtype,0); puts("sized array defined"); }
 ;
 
 statement
@@ -138,7 +139,6 @@ char curident[100];
 
 /* The current type of things being defined */
 int curtype=100;
-char curname[100];
 
 yyerror (char* s)  /* Called by yyparse on error */
 {
