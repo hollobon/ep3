@@ -17,7 +17,7 @@ char* str;
 
 %token <val> NUM
 %token <str> IDENTIFIER
-%token BYTE WORD DWORD
+%token POINTER BYTE WORD DWORD
 %token SEMICOLON COMMA
 %token ASSIGN
 %token NL
@@ -122,8 +122,10 @@ exp:
     | REFERENCE IDENTIFIER  { doreference($2); }
     | DEREFERENCE IDENTIFIER { dodereference($2); }
     | ASM                   { }
+    | IDENTIFIER REFSTART NUM REFEND { printf("\n%s+%d\n",$1,$3); }
     | IDENTIFIER            { doident($1); } 
     | exp ASSIGN IDENTIFIER { compilePop($3); }
+    | exp ASSIGN IDENTIFIER REFSTART NUM REFEND  { printf("\n%s+%d\n",curident,$5); }
 ;
 
 %%
