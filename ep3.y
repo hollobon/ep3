@@ -58,10 +58,10 @@ init_declarator_list
 ;
 
 declarator
-    : IDENTIFIER                        { addnewsym(curident,curtype,0); }
-    | IDENTIFIER ASSIGN NUM             { addnewsym(curident,curtype,$3); }
-    | IDENTIFIER REFSTART REFEND        { addnewsym(curident,curtype,0); puts("array defined"); }
-    | IDENTIFIER REFSTART NUM REFEND    { addnewsym(curident,curtype,0); puts("sized array defined"); }
+    : IDENTIFIER                        { addnewsym(curident,curtype,0,0); }
+    | IDENTIFIER ASSIGN NUM             { addnewsym(curident,curtype,$3,0); }
+    | IDENTIFIER REFSTART REFEND        { addnewsym(curident,curtype,0,1); puts("array defined"); }
+    | IDENTIFIER REFSTART NUM REFEND    { addnewsym(curident,curtype,0,$3); puts("sized array defined"); }
 ;
 
 statement
