@@ -24,12 +24,13 @@ FUNC    "["{ID}"]"
 "break"         return BREAK;
 "&"             return REFERENCE;
 "*"             return DEREFERENCE;
+","             return COMMA;
 "'"."'"         yylval.val = yytext[1]; return NUM;
 "0"{DIGIT}+     sscanf(yytext,"%o",&yylval.val); return NUM; /* octal */
 "0x"{DIGIT}+    sscanf(yytext,"%x",&yylval.val); return NUM; /* hexadecimal */
 {DIGIT}+        yylval.val = atoi(yytext); return NUM;       /* decimal */
 {ID}            { strcpy(curident,yytext); yylval.str=yytext; return IDENTIFIER; }
-{FUNC}          { addnewsym(yytext,1); yylval.str=yytext; return FUNCDEF; }
+{FUNC}          { addnewsym(yytext,TYPE_FUNC,0); yylval.str=yytext; return FUNCDEF; }
 [ \t\n]+        /* Eat up whitespace */
 
 "asm {"         BEGIN(asm); if(pass==2) fputs("; inline code starts\n",fileOutput); return ASM;
