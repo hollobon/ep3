@@ -12,6 +12,7 @@ FUNC    "["{ID}"]"
 "byte"          return BYTE;
 "word"          return WORD;
 "dword"         return DWORD;
+"pointer"       return POINTER;
 ";"             return SEMICOLON;
 "="             return ASSIGN;
 "{"             return BLOCKSTART;
