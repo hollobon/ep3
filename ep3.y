@@ -58,10 +58,22 @@ init_declarator_list
 ;
 
 declarator
-    : IDENTIFIER                        { addnewsym(curident,curtype,0,0); }
-    | IDENTIFIER ASSIGN NUM             { addnewsym(curident,curtype,$3,0); }
+    : declarator2
+    | pointer declarator2
+;
+
+declarator2
+    : IDENTIFIER                        { addnewsym(curident,curtype,0,0); puts(curident); }
+    | IDENTIFIER ASSIGN NUM             { addnewsym(curident,curtype,$3,0); puts(curident); }
     | IDENTIFIER REFSTART REFEND        { addnewsym(curident,curtype,0,1); puts("array defined"); }
     | IDENTIFIER REFSTART NUM REFEND    { addnewsym(curident,curtype,0,$3); puts("sized array defined"); }
+;
+
+pointer
+    : DEREFERENCE
+    | DEREFERENCE type_specifier
+    | DEREFERENCE pointer
+    | DEREFERENCE type_specifier pointer
 ;
 
 statement
@@ -119,12 +131,12 @@ function
 
 exp: 
     NUM                     { fprintf(fileOutput,"\tpush %d\n",$1); }
-    | REFERENCE IDENTIFIER  { doreference($2); }
+    | REFERENCE IDENTIFIER  { doreference(curident); }
     | DEREFERENCE IDENTIFIER { dodereference($2); }
     | ASM                   { }
-    | IDENTIFIER REFSTART NUM REFEND { printf("\n%s+%d\n",$1,$3); }
-    | IDENTIFIER            { doident($1); } 
-    | exp ASSIGN IDENTIFIER { compilePop($3); }
+    | IDENTIFIER REFSTART NUM REFEND { printf("\n%s+%d\n",curident,curident); }
+    | IDENTIFIER            { printf("Identifier: %s",curident); doident(curident); } 
+    | exp ASSIGN IDENTIFIER { compilePop(curident); }
     | exp ASSIGN IDENTIFIER REFSTART NUM REFEND  { printf("\n%s+%d\n",curident,$5); }
 ;
 
