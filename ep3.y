@@ -1,3 +1,9 @@
+/* ep3.y
+ * 
+ * Bison parser for EP3 compiler
+ * 
+ * (C) Peter Hollobon 1997
+ */
 
 %{
 #include "ep3.h"
