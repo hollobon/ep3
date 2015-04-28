@@ -57,24 +57,24 @@ init_declarator_list
     | init_declarator_list COMMA declarator 
 ;
 
-declarator
+/*declarator
     : declarator2
     | pointer declarator2
-;
+;*/
 
-declarator2
+declarator
     : IDENTIFIER                        { addnewsym(curident,curtype,0,0); puts(curident); }
     | IDENTIFIER ASSIGN NUM             { addnewsym(curident,curtype,$3,0); puts(curident); }
     | IDENTIFIER REFSTART REFEND        { addnewsym(curident,curtype,0,1); puts("array defined"); }
     | IDENTIFIER REFSTART NUM REFEND    { addnewsym(curident,curtype,0,$3); puts("sized array defined"); }
 ;
 
-pointer
+/*pointer
     : DEREFERENCE
     | DEREFERENCE type_specifier
     | DEREFERENCE pointer
     | DEREFERENCE type_specifier pointer
-;
+;*/
 
 statement
     : compound_statement
@@ -135,7 +135,7 @@ exp:
     | DEREFERENCE IDENTIFIER { dodereference($2); }
     | ASM                   { }
     | IDENTIFIER REFSTART NUM REFEND { printf("\n%s+%d\n",curident,curident); }
-    | IDENTIFIER            { printf("Identifier: %s",curident); doident(curident); } 
+| IDENTIFIER            { printf("Identifier: %s",curident); doident(curident); } 
     | exp ASSIGN IDENTIFIER { compilePop(curident); }
     | exp ASSIGN IDENTIFIER REFSTART NUM REFEND  { printf("\n%s+%d\n",curident,$5); }
 ;
