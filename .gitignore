@@ -1,0 +1,4 @@
+*.o
+lex.yy.c
+ep3.tab.[ch]
+RCS_
