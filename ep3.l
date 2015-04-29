@@ -30,8 +30,8 @@ FUNC    "["{ID}"]"
 "0"{DIGIT}+     sscanf(yytext,"%o",&yylval.val); return NUM; /* octal */
 "0x"{DIGIT}+    sscanf(yytext,"%x",&yylval.val); return NUM; /* hexadecimal */
 {DIGIT}+        yylval.val = atoi(yytext); return NUM;       /* decimal */
-{ID}            { strcpy(curident,yytext); yylval.str=yytext; return IDENTIFIER; }
-{FUNC}          { addnewsym(yytext,TYPE_FUNC,0,0); yylval.str=yytext; return FUNCDEF; }
+{ID}            { strncpy(yylval.str, yytext, 100); return IDENTIFIER; }
+{FUNC}          { addnewsym(yytext,TYPE_FUNC,0,0); strncpy(yylval.str, yytext, 100); return FUNCDEF; }
 [ \t\n]+        /* Eat up whitespace */
 
 "asm {"         BEGIN(asm); if(pass==2) fputs("; inline code starts\n",fileOutput); return ASM;

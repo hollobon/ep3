@@ -2,7 +2,7 @@
  * 
  * Bison parser for EP3 compiler
  * 
- * (C) Peter Hollobon 1997
+ * Copyright Peter Hollobon 1997
  */
 
 %{
@@ -12,7 +12,7 @@
 %union {
 int val;
 symrec* tptr;
-char* str;
+char str[100];
 }
 
 %token <val> NUM
@@ -63,10 +63,10 @@ init_declarator_list
 ;*/
 
 declarator
-    : IDENTIFIER                        { addnewsym(curident,curtype,0,0); puts(curident); }
-    | IDENTIFIER ASSIGN NUM             { addnewsym(curident,curtype,$3,0); puts(curident); }
-    | IDENTIFIER REFSTART REFEND        { addnewsym(curident,curtype,0,1); puts("array defined"); }
-    | IDENTIFIER REFSTART NUM REFEND    { addnewsym(curident,curtype,0,$3); puts("sized array defined"); }
+    : IDENTIFIER                        { addnewsym($1,curtype,0,0); printf("identifier %s declared as %d\n", $1, curtype); }
+    | IDENTIFIER ASSIGN NUM             { addnewsym($1,curtype,$3,0); puts($1); }
+    | IDENTIFIER REFSTART REFEND        { addnewsym($1,curtype,0,1); puts("array defined"); }
+    | IDENTIFIER REFSTART NUM REFEND    { addnewsym($1,curtype,0,$3); puts("sized array defined"); }
 ;
 
 /*pointer
@@ -131,13 +131,13 @@ function
 
 exp: 
     NUM                     { fprintf(fileOutput,"\tpush %d\n",$1); }
-    | REFERENCE IDENTIFIER  { doreference(curident); }
+    | REFERENCE IDENTIFIER  { doreference($2); }
     | DEREFERENCE IDENTIFIER { dodereference($2); }
     | ASM                   { }
-    | IDENTIFIER REFSTART NUM REFEND { printf("\n%s+%d\n",curident,curident); }
-| IDENTIFIER            { printf("Identifier: %s",curident); doident(curident); } 
-    | exp ASSIGN IDENTIFIER { compilePop(curident); }
-    | exp ASSIGN IDENTIFIER REFSTART NUM REFEND  { printf("\n%s+%d\n",curident,$5); }
+    | IDENTIFIER REFSTART NUM REFEND { printf("\nidentifier with index %s+%d\n",$1,$3); }
+    | IDENTIFIER            { printf("identifier: %s\n",$1); doident($1); } 
+    | exp ASSIGN IDENTIFIER { printf("assignment to identifier %s\n", $3); compilePop($3); }
+    | exp ASSIGN IDENTIFIER REFSTART NUM REFEND  { printf("assignment to Identifier with index %s+%d\n",$3,$5); }
 ;
 
 %%
@@ -147,9 +147,6 @@ exp:
 
 /* The name of the current function being compiled */
 char funcname[100];
-
-/* The name of the current identifier */
-char curident[100];
 
 /* The current type of things being defined */
 int curtype=100;
