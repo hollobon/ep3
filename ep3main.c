@@ -8,6 +8,8 @@
  * Copyright (c) Peter Hollobon 1997-2015
  */
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "ep3.h"
 
 char header[]=".386\n\
