@@ -69,15 +69,15 @@ main(int argc,char** argv)
       exit(1);
    }
    
-   strcpy(inFilename,argv[1]);
-   strcat(inFilename,".ep3");
+   strncpy(inFilename, argv[1], 128);
+   strncat(inFilename, ".ep3", 128);
    if ((fileInput=fopen(inFilename,"r"))==NULL) {
       fprintf(stderr,"Error: could not open file %s\n",inFilename);
       exit(1);
    }
    
-   strcpy(outFilename,argv[1]);
-   strcat(outFilename,".asm");
+   strncpy(outFilename, argv[1], 128);
+   strncat(outFilename, ".asm", 128);
    if ((fileOutput=fopen(outFilename,"w"))==NULL) {
       fprintf(stderr,"Error: could not open output file %s\n",outFilename);
       exit(1);
