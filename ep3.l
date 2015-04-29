@@ -18,7 +18,7 @@ FUNC    "["{ID}"]"
 "dword"         return DWORD;
 "pointer"       return POINTER;
 ";"             return SEMICOLON;
-"="             return ASSIGN;
+"->"             return ASSIGN;
 "{"             return BLOCKSTART;
 "}"             return BLOCKEND;
 "["             return REFSTART;
