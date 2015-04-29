@@ -90,7 +90,7 @@ expression_statement
 ;
 
 jump_statement
-    : BREAK             { dobreak() }
+    : BREAK             { dobreak(); }
 ;
 
 compound_statement
