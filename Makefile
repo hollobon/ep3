@@ -23,4 +23,4 @@ lex.yy.c: ep3.l ep3.h
 	flex ep3.l
 
 clean:
-	rm *.o *~	
+	rm *.o lex.yy.c ep3.tab.c ep3.tab.h ep3
