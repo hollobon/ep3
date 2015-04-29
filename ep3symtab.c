@@ -5,6 +5,8 @@
  * Copyright (c) Peter Hollobon 1997-2015
  */
 
+#include <stdlib.h>
+#include <string.h>
 #include "ep3.h"
 
 /* The symbol table: a linked list of struct symrec */

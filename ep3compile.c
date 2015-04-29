@@ -4,6 +4,7 @@
  */
 
 #include "ep3.h"
+#include <stdlib.h>
 #include <string.h>
 
 int ifdepth=0, ifcount=0;
