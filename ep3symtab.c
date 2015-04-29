@@ -1,6 +1,8 @@
 /* File: ep3symtab.c
  * 
  * Symbol table management routines
+ *
+ * Copyright (c) Peter Hollobon 1997-2015
  */
 
 #include "ep3.h"

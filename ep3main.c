@@ -5,7 +5,7 @@
  * Compiled RPN programming language
  * Generates 80x86 Intel assembler (tasm)
  * 
- * (c) Peter Hollobon '97
+ * Copyright (c) Peter Hollobon 1997-2015
  */
 #include <stdio.h>
 #include "ep3.h"

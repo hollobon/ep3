@@ -1,6 +1,8 @@
 /* ep3.h
  * 
  * Header file for ep3
+ *
+* Copyright (c) Peter Hollobon 1997-2015
  */
 
 #ifndef EP3H

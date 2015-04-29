@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Peter Hollobon 1997-2015
+ */
+
 %{
 #include "ep3.h"
 #include "ep3.tab.h"

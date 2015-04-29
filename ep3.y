@@ -2,7 +2,7 @@
  * 
  * Bison parser for EP3 compiler
  * 
- * Copyright Peter Hollobon 1997
+ * Copyright (c) Peter Hollobon 1997-2015
  */
 
 %{
