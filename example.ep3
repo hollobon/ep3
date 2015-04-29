@@ -1,0 +1,106 @@
+[add] { 
+   asm {
+      pop ax
+      pop bx
+      add ax,bx
+      push ax 
+   }
+}
+
+[sub] {
+   asm {
+      pop ax
+      pop bx
+      sub ax,bx
+      push ax
+   }
+}
+
+[mul] {
+   asm {
+      pop ax
+      pop bx
+      mov dx,0
+      imul bx
+      push ax
+   }
+}
+
+[div] {
+   asm {
+      pop ax
+      pop bx
+      mov dx,0
+      idiv bx
+      push ax
+   }
+}
+
+[equ] {
+    asm { 
+       pop ax
+       pop bx
+       cmp ax,bx
+       je true
+       push 0
+       jmp equ_exit
+       true:
+       push -1
+       equ_exit:
+    }
+}
+
+[swap] {
+   asm {
+      pop ax
+      pop bx
+      push ax
+      push bx
+   }
+}
+
+[show] { 
+   asm {  
+      pop ax
+      mov ah,0eh
+      mov bl,7
+      int 10h     
+   }
+}			
+
+[main] word n { 
+   1 1 equ if {
+      'Y' show
+      2 2 equ if {
+	 'A' show
+      } else {
+	 'B' show
+      }
+   } else {
+      'N' show
+   }
+   2 1 equ if  {
+      'F' show
+   } else {
+      'T' show
+   }
+   90 -> n
+   do {
+      n show
+      65 n equ if {
+	 break
+      } else {
+	 1 n sub -> n
+      }
+   }
+   'd' 'l' 'r' 'o' 'W' ' ' 'o' 'l' 'l' 'e' 'H'
+   1 -> n
+   do {
+      show
+      11 n equ if {
+	 break
+      } else {
+	 1 n add -> n  
+      }
+   }
+}
