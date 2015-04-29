@@ -93,11 +93,11 @@
 	 1 n sub -> n
       }
    }
-   'd' 'l' 'r' 'o' 'W' ' ' 'o' 'l' 'l' 'e' 'H'
+   "Hello, world!"
    1 -> n
    do {
       show
-      11 n equ if {
+      14 n equ if {
 	 break
       } else {
 	 1 n add -> n  

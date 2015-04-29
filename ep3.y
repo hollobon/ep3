@@ -17,6 +17,7 @@ char str[100];
 
 %token <val> NUM
 %token <str> IDENTIFIER
+%token <str> STRING
 %token POINTER BYTE WORD DWORD
 %token SEMICOLON COMMA
 %token ASSIGN
@@ -131,6 +132,7 @@ function
 
 exp: 
     NUM                     { fprintf(fileOutput,"\tpush %d\n",$1); }
+| STRING                { char *start = $1, *c = start; while (*c++); c--; do { fprintf(fileOutput, "\tpush %d\n", *c); } while (--c >= start) }
     | REFERENCE IDENTIFIER  { doreference($2); }
     | DEREFERENCE IDENTIFIER { dodereference($2); }
     | ASM                   { }

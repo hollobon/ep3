@@ -18,7 +18,7 @@ FUNC    "["{ID}"]"
 "dword"         return DWORD;
 "pointer"       return POINTER;
 ";"             return SEMICOLON;
-"->"             return ASSIGN;
+"->"            return ASSIGN;
 "{"             return BLOCKSTART;
 "}"             return BLOCKEND;
 "["             return REFSTART;
@@ -31,6 +31,7 @@ FUNC    "["{ID}"]"
 "*"             return DEREFERENCE;
 ","             return COMMA;
 "'"."'"         yylval.val = yytext[1]; return NUM;
+"\"".+"\""      { size_t i; for (i = 0; i < sizeof(yylval.str) && yytext[i + 1] != '"'; i++) { yylval.str[i] = yytext[i + 1]; } yylval.str[i] = '\0'; return STRING; }
 "0"{DIGIT}+     sscanf(yytext,"%o",&yylval.val); return NUM; /* octal */
 "0x"{DIGIT}+    sscanf(yytext,"%x",&yylval.val); return NUM; /* hexadecimal */
 {DIGIT}+        yylval.val = atoi(yytext); return NUM;       /* decimal */
